@@ -1,6 +1,6 @@
 FROM node:22-bookworm AS installer
 
-ARG AWS_CLI_VERSION=2.21.0
+ARG AWS_CLI_VERSION=2.39.4
 
 COPY aws_public_key.asc .
 

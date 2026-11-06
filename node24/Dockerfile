@@ -1,6 +1,4 @@
-FROM node:22.23.4-bookworm AS node22
-FROM node:24.22.2-bookworm AS node24
-FROM node:26.13.0-bookworm AS node26
+FROM node:24.22.2-bookworm AS node
 
 FROM debian:bookworm-slim AS installer
 
@@ -24,14 +22,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-$(arch)-${AWS_CLI_VERSIO
   # may be present in /usr/local/bin of the installer stage.
   && ./aws/install --bin-dir /aws-cli-bin/
 
-FROM node22 AS final-22
-COPY --from=installer /usr/local/aws-cli/ /usr/local/aws-cli/
-COPY --from=installer /aws-cli-bin/ /usr/local/bin/
-
-FROM node24 AS final-24
-COPY --from=installer /usr/local/aws-cli/ /usr/local/aws-cli/
-COPY --from=installer /aws-cli-bin/ /usr/local/bin/
-
-FROM node26 AS final-26
+FROM node AS final
 COPY --from=installer /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=installer /aws-cli-bin/ /usr/local/bin/

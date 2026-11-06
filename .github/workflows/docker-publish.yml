@@ -41,7 +41,7 @@ jobs:
       - name: Read Node version from Dockerfile
         id: node
         run: |
-          version=$(sed -nE 's/^FROM node:([0-9]+\.[0-9]+\.[0-9]+)-bookworm AS node${{ matrix.node }}$/\1/p' Dockerfile)
+          version=$(sed -nE 's/^FROM node:([0-9]+\.[0-9]+\.[0-9]+)-bookworm AS node$/\1/p' node${{ matrix.node }}/Dockerfile)
           test -n "$version"
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v6.9.0
         with:
           context: .
-          target: final-${{ matrix.node }}
+          file: node${{ matrix.node }}/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

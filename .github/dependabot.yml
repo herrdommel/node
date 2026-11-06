@@ -1,7 +1,21 @@
 version: 2
 updates:
   - package-ecosystem: docker
-    directory: /
+    directory: /node22
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: node
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: docker
+    directory: /node24
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: node
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: docker
+    directory: /node26
     schedule:
       interval: daily
     ignore:

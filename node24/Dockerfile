@@ -1,4 +1,4 @@
-FROM node:24.22.2-bookworm AS node
+FROM node:24.22.3-bookworm AS node
 
 FROM debian:bookworm-slim AS installer
 
